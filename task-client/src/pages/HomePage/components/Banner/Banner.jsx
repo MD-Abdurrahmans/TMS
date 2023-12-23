@@ -9,7 +9,7 @@ const Banner = () => {
 
 
     return (
-      <div className="hero min-h-screen" style={{backgroundImage: 'url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)'}}>
+      <div className="hero min-h-screen" style={{backgroundImage: 'url(https://media.istockphoto.com/id/1002126898/photo/close-up-focus-on-employee-hand-point-review-on-dashboard-tablet-for-ask-and-consulting-about.jpg?s=612x612&w=0&k=20&c=ayNQwE-oba6vqShzVIDtDjxMbpYJSV2LfCVHqqRTkaU=)'}}>
       <div className="hero-overlay bg-opacity-60"></div>
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">

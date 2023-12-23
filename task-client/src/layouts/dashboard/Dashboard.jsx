@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 
 const Dashboard = () => {
   const [manageTask,refetch] = useTask();
+  const [task,setTask]= useState(manageTask)
 // console.log(manageTask)
   const todo = manageTask?.filter((task)=>task.status === 'Todo');
   const doing = manageTask?.filter((task)=>task.status === 'Doing');
@@ -54,6 +55,33 @@ const [ids,setIds] = useState();
 
     }
 
+    // handleDragStart 
+
+const  handleDragStart = (event,id)=>{
+
+   event.dataTransfer.setData('id',id)
+   console.log(id)
+
+}
+
+// handleDrop 
+
+const handleDrop = (event,status)=>{
+ event.preventDefault();
+
+ const id = event.dataTransfer.getData('id')
+ const updatedTasks = task?.map(task => {
+  if (task.id === id) {
+    return { ...task, status: status };
+  }
+  return task;
+});
+setTask(updatedTasks);
+
+}
+const allowDrop = (event) => {
+  event.preventDefault();
+};
 
   
   return (
@@ -74,7 +102,7 @@ const [ids,setIds] = useState();
           </label>
           <select {...register('status')} className="select select-bordered w-full ">
        
-  <option disabled selected>status</option>
+  {/* <option disabled selected>status</option> */}
   <option>Todo</option>
   <option>Doing</option>
   <option>Done</option>
@@ -84,7 +112,7 @@ const [ids,setIds] = useState();
 
    <div className="my-4">
 
-     <button  type="submit" className="btn w-full  ">Change  Status</button>
+     <button  type="submit" className="btn w-full  bg-yellow-500 text-white ">Change  Status</button>
    </div>
 
  </form>
@@ -115,12 +143,12 @@ const [ids,setIds] = useState();
 
             {/* todo */}
  
-             <div >
+             <div  onDrop={(e)=>handleDrop(e,'todo')}  onDragOver={allowDrop} >
                 <h1 className="text-3xl font-bold text-center">TODO</h1>
                {
                  todo?.map((task)=><>
                  
-                  <div className="border m-2 p-2 overflow-hidden" key={task._id} >
+                  <div className="border m-2 p-2 overflow-hidden" draggable onDragStart={(e)=>handleDragStart(e,task._id)}  key={task._id} >
                     
                      <div className="grid grid-cols-12">
                      <div className="col-span-8">
@@ -131,12 +159,12 @@ const [ids,setIds] = useState();
                       <div className="col-span-3">
                  
                        <div onClick={()=>setIds(task?._id)}>
-                       <button     title="Status" className=" " onClick={()=>document.getElementById('my_modal_5').showModal()}><MdPanoramaPhotosphereSelect className="text-3xl"/></button>
+                       <button     title="Status" className=" " onClick={()=>document.getElementById('my_modal_5').showModal()}><MdPanoramaPhotosphereSelect className="text-3xl text-yellow-500"/></button>
 
                    
                        </div>
                           <Link to={`/dashboard/update/${task?._id}`}>
-                          <p><MdEditSquare className="text-3xl"/></p>
+                          <p><MdEditSquare className="text-3xl text-green-500"/></p>
                           </Link>
                       </div>
                      </div>
@@ -164,12 +192,12 @@ const [ids,setIds] = useState();
                       <div className="col-span-3">
                  
                        <div onClick={()=>setIds(task?._id)}>
-                       <button     title="Status" className=" " onClick={()=>document.getElementById('my_modal_5').showModal()}><MdPanoramaPhotosphereSelect className="text-3xl"/></button>
+                       <button     title="Status" className=" " onClick={()=>document.getElementById('my_modal_5').showModal()}><MdPanoramaPhotosphereSelect className="text-3xl text-yellow-400"/></button>
 
                    
                        </div>
                           <Link to={`/dashboard/update/${task?._id}`}>
-                          <p><MdEditSquare className="text-3xl"/></p>
+                          <p><MdEditSquare className="text-3xl text-green-500"/></p>
                           </Link>
                       </div>
                      </div>

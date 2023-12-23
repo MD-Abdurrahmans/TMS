@@ -6,7 +6,10 @@ import { IoNewspaperSharp } from "react-icons/io5";
 import { RiFilePaper2Line } from "react-icons/ri";
 import { RiHomeOfficeLine } from "react-icons/ri";
 import { MdPanoramaVerticalSelect } from "react-icons/md";
+import Swal from "sweetalert2";
+import useTask from "../../../hooks/useTask";
 const Navlinks = () => {
+  const [manageTask,refetch] = useTask();
 const axiosSecure = useAxios();
     const {
         register,
@@ -24,10 +27,17 @@ const axiosSecure = useAxios();
         
        const res = await  axiosSecure.post('/createTask',data)
 
-       console.log('createTask',res)
+      //  console.log('createTask',res)
         if(res?.data?.acknowledged){
 
-            alert("created task")
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Task has been created",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch()
         }
 
       }
