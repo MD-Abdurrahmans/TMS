@@ -9,10 +9,12 @@ import Dashboard from "../layouts/dashboard/Dashboard";
 import ManageTask from "../pages/dashboards/manageTask/ManageTask";
 import UpdateTask from "../pages/dashboards/updateTask/UpdateTask";
 import About from "../pages/about/About";
+import Error from "../pages/errorPage/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement:<Error></Error>,
     element: <Root />,
     children: [
       {

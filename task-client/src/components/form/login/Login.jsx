@@ -54,13 +54,20 @@ const axiosSecure = useAxios();
  
 
         signInWithGoogle().then((res)=>{
-           console.log('gogres',res)
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Account Logged Successfully",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          //  console.log('gogres',res)
            const email=res?.user?.email;
            const userInfo = {email:email}    
-           console.log('email',email)
+          //  console.log('email',email)
             if(email){
    
-               alert("account created")
+              //  alert("account created")
                navigate('/')
                axiosSecure.post(`/users/${email}`,userInfo).then((res)=>{
                    if(res?.data?.acknowledged){
